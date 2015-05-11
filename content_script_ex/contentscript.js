@@ -1,14 +1,6 @@
-var username = 'username';
-// var last_loaded = new Firebase('https://sweltering-torch-4591.firebaseIO.com/users/username/last_loaded');
-// last_loaded.set(window.location.href);
-// keys will need to be associated with the window href
+var username = 'cmillz';
 
-
-chrome.browserAction.onClicked.addListener(function(tabs) {
-    console.log(tabs.url);
-    // checkUser(tabs.url)
-    getVideoList(tabs.url);
-  });
+getVideoList(window.location.href);
 
   function checkUser(cur_url){
     if(cur_url === 'http://caseymm.github.io/reverse-second-screen/'){
@@ -23,8 +15,6 @@ chrome.browserAction.onClicked.addListener(function(tabs) {
 
   }
 
-  // Probably aren't going to want this running all of the time - too many requests
-  // Will circle back to that...
   function getVideoList(feature){
     if(feature === "http://caseymm.github.io/reverse-second-screen/space.html#"+username){
       feature = 'space';
@@ -33,18 +23,21 @@ chrome.browserAction.onClicked.addListener(function(tabs) {
     } else if(feature === "https://sweltering-torch-4591.firebaseio.com/users/"+username){
       feature = 'cherry_blossoms';
     }
-    var videos = new Firebase('https://sweltering-torch-4591.firebaseIO.com/features/');
+    var videos = new Firebase('https://sweltering-torch-4591.firebaseIO.com/features/'+feature);
 
       videos.once('value', function (snapshot) {
         var vids = snapshot.val();
-        if(vids[feature]){
+        console.log(vids)
+        // if(vids[feature]){
           var last_loaded = new Firebase('https://sweltering-torch-4591.firebaseIO.com/users/'+username+'/last_loaded');
           last_loaded.set(feature);
+
+          // Would be great if this opened up a new tab as well that could be cast
 
           //These keys have to match ids (or maybe classes) in the article page
           var slug_list = Object.keys(vids[feature]);
           addListeners(slug_list);
-        }
+        // }
       });
   }
 
