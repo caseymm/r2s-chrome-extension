@@ -1,0 +1,17 @@
+{
+  "manifest_version": 2,
+  "name": "oauth test",
+  "description": "oauth test",
+  "version": "0.0.1",
+  "browser_action": {
+        "default_icon": "icon.png"
+  },
+  "background": {
+    "scripts": ["background.js", "chrome_ex_oauthsimple.js", "chrome_ex_oauth.js", "onload.js"]
+  },
+  "permissions": [ "tabs", "http://*/*", "https://*/*",
+  "https://www.google.com/accounts/OAuthGetRequestToken",
+  "https://www.google.com/accounts/OAuthAuthorizeToken",
+  "https://www.google.com/accounts/OAuthGetAccessToken"
+]
+}
